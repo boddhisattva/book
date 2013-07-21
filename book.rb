@@ -1,7 +1,7 @@
 class RspecLoopStop < Exception; end
 class Book
-	
-  attr_accessor :books	
+
+  attr_accessor :books
   def initialize books
     puts "Welcome to setting book price program"
     @books = books
@@ -23,6 +23,18 @@ class Book
     }
   end
 
+  def self.categories #return say all the categories
+    puts "\n I'm in the categories class method" #class methods are recognized by self
+  end
+
+  def Book.publishers #return say all the publishers
+    puts "\n I'm in a class method" #class methods are recognized by Class name, please remember even a class is an object in Ruby
+  end # The class Book itself is an instance of type Class
+
+  def get_publisher #returns for a specific object/instance of type Book
+    puts "I'm in the get publisher instance method"
+  end
+
 end
 
 books = {"The Last Samurai" => nil,
@@ -34,4 +46,14 @@ books = {"The Last Samurai" => nil,
 
 book_details = Book.new(books)
 book_details.get_prices
-#puts "\n*******Books:#{book_details.books}******\n"
+Book.categories
+Book.publishers
+
+#def book_details.Book.get_category currently throws error , please check correct syntax..
+#puts "I'm in the get category instance method" # to check - http://www.rubyfleebie.com/understanding-class-methods-in-ruby/comment-page-1/#comment-2045
+#end
+book_details.get_publisher
+#book_details.categories #throws undefined method `categories' for #<Book:0x00000001eac828> (NoMethodError)
+#Book.get_publisher #throws error undefined method `get_publisher' for Book:Class (NoMethodError)
+Book.new(books).get_publisher #will work
+
