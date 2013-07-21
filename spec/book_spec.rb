@@ -21,18 +21,16 @@ describe Book do
     it "Should get the price in the correct format or else return appropriate error" do
       puts "\n************************************************************************\n"
       book_obj = @book
-      #STDOUT.should_receive(:puts).and_return("Welcome to setting book price program")
-      #book_obj.get_prices.should_not be_nil
       STDIN.stub(:gets) { "40" }
       book_obj.get_prices.should_not be_nil
-      #book_obj.books["The Last Samurai"].stub!(:gets) {"40"} #trying to set the value for one book using Hash
-      #book_obj.books["The Last Samurai"].should == 40 #verifying the value set for a particular key is accurate
     end
 
     it "Incorrect input format should return error message asking user to re input" do
       puts "\n************************************************************************\n"
       book_obj = @book
-      #STDIN.stub(:gets) { "40abc" }
+      STDIN.stub(:gets) { "40abc" }
+      book_obj.get_prices
+      STDOUT.should_receive(:puts).with("Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n")
 
       #book_obj.get_prices.should be_nil --> adding this line of code goes into an infinite loop with the error message below
       #Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n
@@ -42,16 +40,24 @@ describe Book do
       #the below two tests fails with syntax error - don't seem that easy to figure out what's going wrong
 
       #STDOUT.should_receive("Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n")
+      #\n towards the end is as in the third line of input the user is asked to re enter input in correct format
       #STDOUT.should == "Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n"
 
-      #STDIN.stub(:gets) { "40abc" }
 
-      begin
-        STDIN.stub(:gets) { "40abc" }
-        #book_obj.get_prices.should be_nil
-      rescue RspecLoopStop
-        #exit
-      end
+      #begin    #didn't work for me
+      #  STDIN.stub(:gets) { "40abc" }
+      #  book_obj.get_prices.should_raise RspecLoopStop
+      #rescue RspecLoopStop
+      #  #exit
+      #end
+
+      #begin
+      #  STDIN.stub(:gets) { "40abc" } #incorrect input prompts user to re enter price in correct format
+      #  book_obj.get_prices #how to catch the infinite loop as an exception and exit out of it say using rescue block
+      #rescue #I guess this won't be called until the exception is correctly caught
+      #  STDIN.stub(:gets) { "85" }
+      #  book_obj.get_prices.should_not be_nil
+      #end
 
     end
   end
