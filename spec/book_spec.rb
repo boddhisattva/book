@@ -28,7 +28,9 @@ describe Book do
     it "Incorrect input format should return error message asking user to re input" do
       puts "\n************************************************************************\n"
       book_obj = @book
-      #STDIN.stub(:gets) { "40abc" }
+      STDIN.stub(:gets) { "40abc" }
+      book_obj.get_prices
+      STDOUT.should_receive(:puts).with("Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n")
 
       #book_obj.get_prices.should be_nil --> adding this line of code goes into an infinite loop with the error message below
       #Price cannot be 0 or a negative integer or in decimal format or alphanumeric. \nPlease input appropriate duration in integer\n
@@ -49,13 +51,13 @@ describe Book do
       #  #exit
       #end
 
-      begin
-        STDIN.stub(:gets) { "40abc" } #incorrect input prompts user to re enter price in correct format
-        book_obj.get_prices #how to catch the infinite loop as an exception and exit out of it say using rescue block
-      rescue #I guess this won't be called until the exception is correctly caught
-        STDIN.stub(:gets) { "85" }
-        book_obj.get_prices.should_not be_nil
-      end
+      #begin
+      #  STDIN.stub(:gets) { "40abc" } #incorrect input prompts user to re enter price in correct format
+      #  book_obj.get_prices #how to catch the infinite loop as an exception and exit out of it say using rescue block
+      #rescue #I guess this won't be called until the exception is correctly caught
+      #  STDIN.stub(:gets) { "85" }
+      #  book_obj.get_prices.should_not be_nil
+      #end
 
     end
   end
