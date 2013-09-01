@@ -1,6 +1,6 @@
 class Parent
 
- def get_weight
+ def get_weight     # by default this is public if no access specifier specified..
 
    "74"
 
@@ -45,6 +45,8 @@ class Child < Parent
    # Explicit receiver
 
    puts Parent.new.name rescue puts 'NoMethodError'
+
+   puts get_age #protected method can be called using an implicit receiver
 
    puts self.get_age rescue puts 'Cannot access protected method from self'
 
