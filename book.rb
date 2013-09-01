@@ -1,6 +1,10 @@
 class RspecLoopStop < Exception; end
-class Book
+#require './publisher' requires your module to be in the same directory as current...
+# #reference http://stackoverflow.com/questions/9750610/ruby-require-error-cannot-load-such-file
+require_relative 'publisher'
 
+class Book
+  include Publisher# even without the include stmnt Publisher.get_publisher works..
   attr_accessor :books
   def initialize books
     puts "Welcome to setting book price program"
@@ -48,6 +52,7 @@ book_details = Book.new(books)
 book_details.get_prices
 Book.categories
 Book.publishers
+#book_details.publisher_name
 
 #def book_details.Book.get_category currently throws error , please check correct syntax..
 #puts "I'm in the get category instance method" # to check - http://www.rubyfleebie.com/understanding-class-methods-in-ruby/comment-page-1/#comment-2045
@@ -57,3 +62,5 @@ book_details.get_publisher
 #Book.get_publisher #throws error undefined method `get_publisher' for Book:Class (NoMethodError)
 Book.new(books).get_publisher #will work
 
+Publisher.publisher_name
+#book_details.publisher_name --> please check.. come back 2..
