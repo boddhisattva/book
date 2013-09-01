@@ -3,7 +3,18 @@ class RspecLoopStop < Exception; end
 # #reference http://stackoverflow.com/questions/9750610/ruby-require-error-cannot-load-such-file
 require_relative 'publisher'
 
+module Week
+  FIRST_DAY = "Sunday"
+  def Week.weeks_in_month
+    puts "You have four weeks in a month"
+  end
+  def Week.weeks_in_year
+    puts "You have 52 weeks in a year"
+  end
+end
+
 class Book
+  include Week
   include Publisher# even without the include stmnt Publisher.get_publisher works..
   attr_accessor :books
   def initialize books
@@ -63,4 +74,5 @@ book_details.get_publisher
 Book.new(books).get_publisher #will work
 
 Publisher.publisher_name
+Week.weeks_in_year
 #book_details.publisher_name --> please check.. come back 2..
