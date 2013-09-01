@@ -3,7 +3,7 @@
 require "./support"
 
 class Decade
-  #include Week
+  #include Week  --> including here doesn't seem to be mandatory - reflect..(as a diff wrt require.)
   no_of_yrs=10
   def no_of_months
     puts Week::FIRST_DAY
