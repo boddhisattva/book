@@ -95,4 +95,5 @@ book_details.say_hello_from_month # simple way of extending an instance..
 
 puts "Value of a constant:- #{Publisher::MAX}"
 
+puts "\ntest" #random msg
 #book_details.publisher_name --> doesn't work as we need a "method" to be defined as in the case of:- say_hello_from_week
